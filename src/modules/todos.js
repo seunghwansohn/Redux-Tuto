@@ -1,6 +1,3 @@
-import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
-
 const CHANGE_INPUT = 'todos/CHANGE_INPUT'; // 인풋 값을 변경함
 const INSERT = 'todos/INSERT'; // 새로운 todo 를 등록함
 const TOGGLE = 'todos/TOGGLE'; // todo 를 체크/체크해제 함
@@ -64,6 +61,11 @@ function todos (state = initialState, action) {
         todos: state.todos.map (todo =>
           todo.id === action.id ? {...todo, done: !todo.done} :todo
           )
+      }
+    case REMOVE:
+      return {
+        ...state,
+        todos: state.todos.filter(todo => todo.id !== action.id)
       }
     default:
       return state;
